@@ -27,4 +27,4 @@ while True:
     #print(key)
 
     pygame.display.update()
-    clock.tick(600)
+    clock.tick(60)
