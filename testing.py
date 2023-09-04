@@ -27,13 +27,10 @@ rocket = pygame.image.load("rocket.png")
 
 
 # initialize values
-x =0
-y = 0
+x = 0
+y = 20
 
-
-i = 0
 while True:
-    i += 1
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -49,16 +46,21 @@ while True:
     if keys[pygame.K_RIGHT]:
         x += STEP_SIZE * DT
 
+
+
     screen.fill('black')
     screen.blit(rocket, (x,y))
     #keys = pygame.key.get_pressed()
     #print(key)
 
-
     for i in range(0,64):
         for j in range(0, 48):
             pygame.draw.rect(screen, GREEN, (i*SQUARE_WIDTH,j*SQUARE_WIDTH,SQUARE_WIDTH-1,SQUARE_WIDTH-1), width=BORDER_WIDTH)
 
+    # x += 1
+    # if(x>63):
+    #     x -=63
+    # pygame.draw.rect(screen, RED, (x*SQUARE_WIDTH,y*SQUARE_WIDTH,SQUARE_WIDTH-1,SQUARE_WIDTH-1), width=BORDER_WIDTH)
 
 
     pygame.display.update()
