@@ -1,10 +1,71 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+bool game_step(SDL_Renderer *renderer)
+{
+    SDL_Event event;
+    static bool quit = false;
+
+    static uint8_t red=0, green=0, blue=0;
+    static uint8_t x=0, y=0;
+
+
+    // Set the drawing color to red
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+    // Clear the screen (background color)
+    //SDL_RenderClear(renderer);
+
+    // Set the drawing color to red
+    SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
+
+    // Draw a line
+    SDL_RenderDrawLine(renderer, x+100, y+100, x+300, y+300);
+
+    // Update the screen
+    SDL_RenderPresent(renderer);
+
+    y++;
+        /* Poll for events */
+        while( SDL_PollEvent( &event ) ){
+
+            switch( event.type ){
+                case SDL_KEYDOWN:
+                case SDL_KEYUP:
+                    switch(event.key.keysym.sym){
+                        case SDLK_x:
+                            x++;
+                            break;
+                        case SDLK_r:
+                            red++;
+                            break;
+                        case SDLK_g:
+                            green++;
+                            break;
+                        case SDLK_b:
+                            blue++;
+                            break;
+                    }
+                    break;
+
+                /* SDL_QUIT event (window close) */
+                case SDL_QUIT:
+                    quit = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    return quit;
+}
+
 int main( int argc, char * argv[] ) {
     SDL_Window *window;
     SDL_Renderer *renderer;
-    SDL_Event event;
+
+    // Setup
+    // =====
 
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -30,44 +91,15 @@ int main( int argc, char * argv[] ) {
         return 1;
     }
 
-    // Set the drawing color to red
-    SDL_SetRenderDrawColor(renderer, 255, 150, 0, 255);
-
-    // Clear the screen (background color)
-    //SDL_RenderClear(renderer);
-
-    // Draw a line
-    SDL_RenderDrawLine(renderer, 100, 100, 300, 300);
-
-    // Update the screen
-    SDL_RenderPresent(renderer);
-
-    // Wait for a few seconds before closing the window
-    //SDL_Delay(3000);
-
-
     // Event loop
-    int quit = 0;
-    while (!quit) {
-        while (SDL_PollEvent(&event) != 0) {
-            if (event.type == SDL_QUIT) {
-                quit = 1;
-            }
-            else if (event.type == SDL_TEXTINPUT) {
-                // Handle text input events
-                //printf("Text Input: %s\n", event.text.text);
-                if(event.text.text[0] == 'x')
-                    quit = 1;
-            }
-        }
-    }
-
+    // ==========
+    while( !game_step(renderer) );
 
     // Clean up
+    // ========
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
     return 0;
 }
-
