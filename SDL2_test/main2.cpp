@@ -1,31 +1,36 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
+
 bool game_step(SDL_Renderer *renderer)
 {
     SDL_Event event;
     static bool quit = false;
 
     static uint8_t red=0, green=0, blue=0;
-    static uint8_t x=0, y=0;
+    static int x=0, y=0;
 
 
-    // Set the drawing color to red
-    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
-    // Clear the screen (background color)
-    //SDL_RenderClear(renderer);
+    // Clear background
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
     // Set the drawing color to red
-    SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
+    //SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
     // Draw a line
-    SDL_RenderDrawLine(renderer, x+100, y+100, x+300, y+300);
+    //SDL_RenderDrawLine(renderer, x+100, y+100, x+300, y+300);
+    SDL_Rect rectangle = {.x = x, .y = y, .w = 5, .h = 5};
+    SDL_RenderFillRect(renderer, &rectangle);
 
     // Update the screen
     SDL_RenderPresent(renderer);
 
-    y++;
+    SDL_GetMouseState(&x, &y);
+
         /* Poll for events */
         while( SDL_PollEvent( &event ) ){
 
@@ -34,7 +39,7 @@ bool game_step(SDL_Renderer *renderer)
                 case SDL_KEYUP:
                     switch(event.key.keysym.sym){
                         case SDLK_x:
-                            x++;
+                            quit = true;
                             break;
                         case SDLK_r:
                             red++;
@@ -75,7 +80,7 @@ int main( int argc, char * argv[] ) {
 
     // Create a window
     window = SDL_CreateWindow("Drawing Example", SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED, 1000, 800, SDL_WINDOW_SHOWN);
+                              SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
         SDL_Quit();
