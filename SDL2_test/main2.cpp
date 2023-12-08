@@ -1,69 +1,9 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <windows.h>
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#include "gameloop.h"
 
-bool game_step(SDL_Renderer *renderer)
-{
-    SDL_Event event;
-    static bool quit = false;
-
-    static uint8_t red=0, green=0, blue=0;
-    static int x=0, y=0;
-
-
-    // Clear background
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    // Set the drawing color to red
-    //SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    // Draw a line
-    //SDL_RenderDrawLine(renderer, x+100, y+100, x+300, y+300);
-    SDL_Rect rectangle = {.x = x, .y = y, .w = 5, .h = 5};
-    SDL_RenderFillRect(renderer, &rectangle);
-
-    // Update the screen
-    SDL_RenderPresent(renderer);
-
-    SDL_GetMouseState(&x, &y);
-
-        /* Poll for events */
-        while( SDL_PollEvent( &event ) ){
-
-            switch( event.type ){
-                case SDL_KEYDOWN:
-                case SDL_KEYUP:
-                    switch(event.key.keysym.sym){
-                        case SDLK_x:
-                            quit = true;
-                            break;
-                        case SDLK_r:
-                            red++;
-                            break;
-                        case SDLK_g:
-                            green++;
-                            break;
-                        case SDLK_b:
-                            blue++;
-                            break;
-                    }
-                    break;
-
-                /* SDL_QUIT event (window close) */
-                case SDL_QUIT:
-                    quit = true;
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    return quit;
-}
 
 int main( int argc, char * argv[] ) {
     SDL_Window *window;
