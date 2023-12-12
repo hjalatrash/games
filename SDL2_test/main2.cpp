@@ -19,7 +19,7 @@ int main( int argc, char * argv[] ) {
     }
 
     // Create a window
-    window = SDL_CreateWindow("Drawing Example", SDL_WINDOWPOS_UNDEFINED,
+    window = SDL_CreateWindow("Snake Game by H. Alatrash - Dec. 2023", SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
