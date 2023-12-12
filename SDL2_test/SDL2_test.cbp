@@ -45,6 +45,8 @@
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
+		<Unit filename="gameloop.cpp" />
+		<Unit filename="gameloop.h" />
 		<Unit filename="main2.cpp" />
 		<Extensions />
 	</Project>

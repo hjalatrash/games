@@ -41,10 +41,7 @@ int main( int argc, char * argv[] ) {
 
     // Event loop
     // ==========
-    while( !game_step(renderer) )
-    {
-        Sleep(1000);
-    }
+    while( !game_step(renderer) );
 
     // Clean up
     // ========
