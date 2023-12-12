@@ -1,0 +1,17 @@
+Working graphics project in C using SDL2...
+
+This uses Code::Blocks, used SDL2 project template when creating the project.
+
+Had to download SDL2 from here: https://github.com/libsdl-org/SDL/releases/tag/release-2.28.5
+
+- Libraries and headers from here: SDL2-devel-2.28.5-mingw.zip
+- DLL to be placed in running path from: SDL2-2.28.5-win32-x64.zip
+
+To compile properly:
+
+- In project build options -> search directories -> compiler: add "..\SDL2-2.28.5\x86_64-w64-mingw32\include"
+- In project build options -> search directories -> linker: add "..\SDL2-2.28.5\x86_64-w64-mingw32\lib"
+- Make sure main gets argc & argv: int main( int argc, char * argv[] )
+
+
+ChatGPT is a great resource to suggest code.. that's where most of that came from.
