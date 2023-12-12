@@ -36,9 +36,15 @@ int main( int argc, char * argv[] ) {
         return 1;
     }
 
+    // initialize game
+    game_init();
+
     // Event loop
     // ==========
-    while( !game_step(renderer) );
+    while( !game_step(renderer) )
+    {
+        Sleep(1000);
+    }
 
     // Clean up
     // ========
