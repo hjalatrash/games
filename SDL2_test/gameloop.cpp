@@ -12,13 +12,34 @@ struct moves moves[MAX_MOVES];
 unsigned int head_x=X_MAX/2, head_y=Y_MAX/2;
 unsigned int squares_filled[X_MAX][Y_MAX];
 
+unsigned int level;
+unsigned int fruit_count;
+
 void render(SDL_Renderer *renderer);
 
-void game_init()
+void init_level(unsigned int level)
 {
-    srand ( time(NULL) );
-
+    // initialize snake
     moves[0] = {.direction = 0, .length = 4};
+
+    for(unsigned int i=1; i<MAX_MOVES; i++)
+    {
+        moves[i].length=0;
+    }
+
+    head_x = X_MAX/2;
+    head_y = Y_MAX/2;
+
+    // clear level
+    for(unsigned int x=0; x<X_MAX; x++)
+    {
+        for(unsigned int y=0; y<Y_MAX; y++)
+        {
+            squares_filled[x][y] = 0;
+        }
+    }
+
+    // common boundary
     for(unsigned int x = 0; x<X_MAX; x++)
     {
         squares_filled[x][0] = 3;
@@ -30,10 +51,41 @@ void game_init()
         squares_filled[X_MAX-1][y] = 3;
     }
 
-    for(int i =0; i<5; i++)
+    switch(level)
+    {
+        case 0:
+        default:
+            fruit_count = 5;
+            break;
+
+        case 1:
+            fruit_count = 8;
+
+            for(unsigned int x = 0; x<X_MAX/2; x++)
+            {
+                squares_filled[x][Y_MAX/3] = 3;
+            }
+            for(unsigned int x = X_MAX/2; x<X_MAX; x++)
+            {
+                squares_filled[x][2*Y_MAX/3] = 3;
+            }
+            break;
+
+    }
+
+    for(unsigned int i =0; i<fruit_count; i++)
     {
         squares_filled[1+rand()%(X_MAX-2)][1+rand()%(Y_MAX-2)] = 2;
     }
+
+}
+
+void game_init()
+{
+    srand ( time(NULL) );
+
+    level = 0;
+    init_level(level);
 }
 
 void add_move(unsigned int direction)
@@ -51,8 +103,8 @@ bool game_step(SDL_Renderer *renderer)
     static bool quit = false;
     static unsigned int growth = 0;
 
-    static uint8_t red=0, green=0, blue=0;
-    static int mouse_x=0, mouse_y=0;
+    //static uint8_t red=0, green=0, blue=0;
+    //static int mouse_x=0, mouse_y=0;
 
     /* Poll for events */
     if( SDL_PollEvent( &event ) )
@@ -114,6 +166,7 @@ bool game_step(SDL_Renderer *renderer)
     unsigned int x = head_x, y = head_y;
 
     bool collision = false;
+    bool complete_level = false;
 
     switch(squares_filled[x][y])
     {
@@ -125,6 +178,9 @@ bool game_step(SDL_Renderer *renderer)
         case 2:     // fruit
             growth+=5;
             squares_filled[x][y] = 1;   // overwrite
+
+            fruit_count--;
+            complete_level = (0==fruit_count);
             break;
 
         case 0:
@@ -167,10 +223,20 @@ bool game_step(SDL_Renderer *renderer)
         }
     }
 
-    if(collision) quit = true;
-
     render(renderer);
     SDL_Delay(50);
+
+    if(collision) quit = true;
+
+    if(complete_level)
+    {
+        level++;
+        init_level(level);
+        SDL_Delay(2000);
+
+        if(level>1)
+            quit = true;
+    }
 
     return quit;
 }
@@ -208,6 +274,7 @@ void render(SDL_Renderer *renderer)
                     blue = 255;
                     break;
                 case 0:
+                default:
                     green = 0;
                     red = 0;
                     blue = 0;
