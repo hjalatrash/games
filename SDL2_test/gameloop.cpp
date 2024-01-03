@@ -8,13 +8,16 @@ struct moves
     unsigned int length;
 };
 
+// snake state
 struct moves moves[MAX_MOVES];
 unsigned int head_x=X_MAX/2, head_y=Y_MAX/2;
 unsigned int squares_filled[X_MAX][Y_MAX];
 
+// level state
 unsigned int level;
 unsigned int fruit_count;
 
+// declarations
 void render(SDL_Renderer *renderer);
 
 void init_level(unsigned int level)
@@ -59,7 +62,7 @@ void init_level(unsigned int level)
             break;
 
         case 1:
-            fruit_count = 8;
+            fruit_count = 6;
 
             for(unsigned int x = 0; x<X_MAX/2; x++)
             {
@@ -71,11 +74,40 @@ void init_level(unsigned int level)
             }
             break;
 
+        case 2:
+            fruit_count = 8;
+
+            for(unsigned int i = 0; i<X_MAX/3; i++)
+            {
+                squares_filled[i][i+10] = 3;
+                squares_filled[X_MAX-1-i][Y_MAX-1-i-10] = 3;
+            }
+            break;
+
+        case 3:
+            fruit_count = 8;
+
+            for(unsigned int i = 0; i<X_MAX/4; i++)
+            {
+                squares_filled[i+X_MAX/3][Y_MAX/3] = 3;
+                squares_filled[X_MAX*2/3-i][Y_MAX*2/3] = 3;
+                squares_filled[X_MAX/3][Y_MAX/3+i] = 3;
+                squares_filled[X_MAX*2/3][Y_MAX*2/3-i] = 3;
+            }
+            break;
+
     }
 
-    for(unsigned int i =0; i<fruit_count; i++)
+    for(unsigned int i =0; i<fruit_count;)
     {
-        squares_filled[1+rand()%(X_MAX-2)][1+rand()%(Y_MAX-2)] = 2;
+        unsigned int x = rand() % X_MAX;
+        unsigned int y = rand() % Y_MAX;
+
+        if(0==squares_filled[x][y])
+        {
+            squares_filled[x][y]= 2;
+            i++;
+        }
     }
 
 }
@@ -113,7 +145,7 @@ bool game_step(SDL_Renderer *renderer)
             case SDL_KEYDOWN:
             //case SDL_KEYUP:
                 switch(event.key.keysym.sym){
-                    case SDLK_x:
+                    case SDLK_ESCAPE:
                         quit = true;
                         break;
                     case SDLK_UP:
@@ -224,7 +256,7 @@ bool game_step(SDL_Renderer *renderer)
     }
 
     render(renderer);
-    SDL_Delay(50);
+    SDL_Delay(70);
 
     if(collision) quit = true;
 
@@ -234,8 +266,11 @@ bool game_step(SDL_Renderer *renderer)
         init_level(level);
         SDL_Delay(2000);
 
-        if(level>1)
+        if(level>MAX_LEVEL)
+        {
+            SDL_Delay(2000);
             quit = true;
+        }
     }
 
     return quit;

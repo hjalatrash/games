@@ -396,7 +396,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1702363048 source:c:\programming\games\sdl2_test\main2.cpp
+1704260997 source:c:\programming\games\sdl2_test\main2.cpp
 	<stdio.h>
 	<SDL2/SDL.h>
 	<windows.h>
@@ -795,10 +795,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1702363700 source:c:\programming\games\sdl2_test\gameloop.cpp
+1704264168 source:c:\programming\games\sdl2_test\gameloop.cpp
 	<SDL2/SDL.h>
 	"gameloop.h"
 	<time.h>
 
-1704180167 c:\programming\games\sdl2_test\gameloop.h
+1704267401 c:\programming\games\sdl2_test\gameloop.h
 
