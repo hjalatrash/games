@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include "gameloop.h"
 #include <time.h>
+#include "sounds.h"
 
 struct moves
 {
@@ -205,11 +206,13 @@ bool game_step(SDL_Renderer *renderer)
         case 1: // snake body
         case 3: // wall
             collision = true;
+            collision_sound();
             break;
 
         case 2:     // fruit
             growth+=5;
             squares_filled[x][y] = 1;   // overwrite
+            fruit_sound();
 
             fruit_count--;
             complete_level = (0==fruit_count);
@@ -264,7 +267,8 @@ bool game_step(SDL_Renderer *renderer)
     {
         level++;
         init_level(level);
-        SDL_Delay(2000);
+        next_level_sound();
+        SDL_Delay(500);
 
         if(level>MAX_LEVEL)
         {
