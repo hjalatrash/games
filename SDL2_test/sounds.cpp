@@ -3,14 +3,16 @@
 
 void collision_sound()
 {
-    Beep(800,300);
-    Beep(600,100);
-    Beep(2000,800);
+    for(int i=0; i<6; i++)
+    {
+        Beep(1000 - i*100, 100);
+    }
+    Beep(300, 1500);
 }
 
 void fruit_sound()
 {
-    Beep(4000,50);
+    Beep(4000,10);
 }
 
 void next_level_sound()

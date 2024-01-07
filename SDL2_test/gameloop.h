@@ -10,7 +10,7 @@
     #define SCREEN_WIDTH    (SQUARE_SIZE * X_MAX)
     #define SCREEN_HEIGHT   (SQUARE_SIZE * Y_MAX)
 
-    bool game_step(SDL_Renderer *renderer);
+    bool game_step(void);
     void game_init();
 
 #endif // GAMELOOP_H
