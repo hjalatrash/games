@@ -88,12 +88,56 @@ void init_level(unsigned int level)
         case 3:
             fruit_count = 8;
 
-            for(unsigned int i = 0; i<X_MAX/4; i++)
+            for(unsigned int x = X_MAX/3; x<X_MAX*2/3-2; x++)
             {
-                squares_filled[i+X_MAX/3][Y_MAX/3] = 3;
-                squares_filled[X_MAX*2/3-i][Y_MAX*2/3] = 3;
-                squares_filled[X_MAX/3][Y_MAX/3+i] = 3;
-                squares_filled[X_MAX*2/3][Y_MAX*2/3-i] = 3;
+                squares_filled[x][Y_MAX/3] = 3;
+                squares_filled[X_MAX-x][Y_MAX*2/3] = 3;
+            }
+            for(unsigned int y = Y_MAX/3; y<Y_MAX*2/3-1; y++)
+            {
+                squares_filled[X_MAX/3][y] = 3;
+                squares_filled[X_MAX*2/3][Y_MAX-y-1] = 3;
+            }
+            break;
+
+        case 4:
+            fruit_count = 20;
+
+            for(unsigned int x = X_MAX/3; x<X_MAX*2/3-2; x++)
+            {
+                squares_filled[x][Y_MAX/3] = 3;
+                squares_filled[X_MAX-x][Y_MAX*2/3] = 3;
+            }
+            for(unsigned int y = Y_MAX/3; y<Y_MAX*2/3-1; y++)
+            {
+                squares_filled[X_MAX/3][y] = 3;
+                squares_filled[X_MAX*2/3][Y_MAX-y-1] = 3;
+            }
+            break;
+
+        case 5:
+            fruit_count = 15;
+
+            for(unsigned int x = X_MAX/3; x<X_MAX*2/3-2; x++)
+            {
+                squares_filled[x][Y_MAX/3] = 3;
+                squares_filled[X_MAX-x][Y_MAX*2/3] = 3;
+            }
+            for(unsigned int y = Y_MAX/3; y<Y_MAX*2/3-1; y++)
+            {
+                squares_filled[X_MAX/3][y] = 3;
+                squares_filled[X_MAX*2/3][Y_MAX-y-1] = 3;
+            }
+
+            for(unsigned int x = X_MAX/6; x<X_MAX*5/6-2; x++)
+            {
+                squares_filled[x][Y_MAX/6] = 3;
+                squares_filled[X_MAX-x][Y_MAX*5/6] = 3;
+            }
+            for(unsigned int y = Y_MAX/6; y<Y_MAX*5/6-1; y++)
+            {
+                squares_filled[X_MAX/6][y] = 3;
+                squares_filled[X_MAX*5/6][Y_MAX-y-1] = 3;
             }
             break;
 
@@ -110,7 +154,6 @@ void init_level(unsigned int level)
             i++;
         }
     }
-
 }
 
 void game_init()
@@ -136,6 +179,8 @@ bool game_step(SDL_Renderer *renderer)
     static bool quit = false;
     static unsigned int growth = 0;
 
+    bool complete_level = false;
+
     //static uint8_t red=0, green=0, blue=0;
     //static int mouse_x=0, mouse_y=0;
 
@@ -150,16 +195,23 @@ bool game_step(SDL_Renderer *renderer)
                         quit = true;
                         break;
                     case SDLK_UP:
-                        add_move(1);
+                        if(3!=moves[0].direction)
+                            add_move(1);
                         break;
                     case SDLK_DOWN:
-                        add_move(3);
+                        if(1!=moves[0].direction)
+                            add_move(3);
                         break;
                     case SDLK_LEFT:
-                        add_move(0);
+                        if(2!=moves[0].direction)
+                            add_move(0);
                         break;
                     case SDLK_RIGHT:
-                        add_move(2);
+                        if(0!=moves[0].direction)
+                            add_move(2);
+                        break;
+                    case SDLK_TAB:
+                        complete_level = true;
                         break;
                 }
                 break;
@@ -199,7 +251,6 @@ bool game_step(SDL_Renderer *renderer)
     unsigned int x = head_x, y = head_y;
 
     bool collision = false;
-    bool complete_level = false;
 
     switch(squares_filled[x][y])
     {

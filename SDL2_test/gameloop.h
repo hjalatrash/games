@@ -5,7 +5,7 @@
     #define X_MAX       (96)
     #define Y_MAX       (64)
     #define MAX_MOVES   (100)
-    #define MAX_LEVEL   (3)
+    #define MAX_LEVEL   (5)
 
     #define SCREEN_WIDTH    (SQUARE_SIZE * X_MAX)
     #define SCREEN_HEIGHT   (SQUARE_SIZE * Y_MAX)

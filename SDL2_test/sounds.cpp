@@ -10,7 +10,7 @@ void collision_sound()
 
 void fruit_sound()
 {
-    Beep(4000,200);
+    Beep(4000,50);
 }
 
 void next_level_sound()
