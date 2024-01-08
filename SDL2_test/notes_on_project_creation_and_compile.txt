@@ -15,3 +15,21 @@ To compile properly:
 
 
 ChatGPT is a great resource to suggest code.. that's where most of that came from.
+
+
+Adding support for text:
+------------------------
+
+Downloaded from here: https://github.com/libsdl-org/SDL_ttf/releases
+SDL2_ttf-devel-2.20.2-mingw.zip
+
+To compile properly:
+- In project build options -> Linker settings and add the following link libraries:
+	* ..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib\libSDL2_ttf.dll.a
+	* ..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib\libSDL2_ttf.a
+	** the order mattered for some reason.  When libSDL2_ttf.a was first, i got a million errors.
+- In project build options -> search libraries -> compiler: add "..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\include\SDL2"
+- In project build options -> search libraries -> compiler: add "..\SDL2-2.28.5\x86_64-w64-mingw32\include\SDL2"
+- In project build options -> search libraries -> Liner: add "..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib"
+
+Downloaded generic TTF font files from the internet.

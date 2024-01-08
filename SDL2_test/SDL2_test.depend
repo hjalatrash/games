@@ -793,7 +793,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1704615157 source:c:\programming\games\sdl2_test\gameloop.cpp
+1704661232 source:c:\programming\games\sdl2_test\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
@@ -809,18 +809,24 @@
 
 1704439220 c:\programming\games\sdl2_test\sounds.h
 
-1704611185 source:c:\programming\games\sdl2_test\rendering.cpp
+1704679308 source:c:\programming\games\sdl2_test\rendering.cpp
 	"rendering.h"
 	<stdio.h>
 	<SDL2/SDL.h>
+	<SDL_ttf.h>
 	<windows.h>
 
 1704611187 c:\programming\games\sdl2_test\rendering.h
 	"gameloop.h"
 
-1704611837 source:c:\programming\games\sdl2_test\levels.cpp
+1704617659 source:c:\programming\games\sdl2_test\levels.cpp
 	"levels.h"
 
 1704611912 c:\programming\games\sdl2_test\levels.h
 	"gameloop.h"
+
+1704660940 c:\programming\games\sdl2_ttf-2.20.2\x86_64-w64-mingw32\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
 
