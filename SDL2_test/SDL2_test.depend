@@ -801,7 +801,7 @@
 	"rendering.h"
 	"levels.h"
 
-1704610126 c:\programming\games\sdl2_test\gameloop.h
+1704684158 c:\programming\games\sdl2_test\gameloop.h
 
 1704612417 source:c:\programming\games\sdl2_test\sounds.cpp
 	"sounds.h"
@@ -809,14 +809,14 @@
 
 1704439220 c:\programming\games\sdl2_test\sounds.h
 
-1704679308 source:c:\programming\games\sdl2_test\rendering.cpp
+1704680870 source:c:\programming\games\sdl2_test\rendering.cpp
 	"rendering.h"
 	<stdio.h>
 	<SDL2/SDL.h>
 	<SDL_ttf.h>
 	<windows.h>
 
-1704611187 c:\programming\games\sdl2_test\rendering.h
+1704684168 c:\programming\games\sdl2_test\rendering.h
 	"gameloop.h"
 
 1704617659 source:c:\programming\games\sdl2_test\levels.cpp
