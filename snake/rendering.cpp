@@ -45,7 +45,7 @@ int setup_graphics_window(void)
 
     // Load a font
     //font = TTF_OpenFont("./font/ArianaVioleta-dz2K.ttf", 24);
-    font = TTF_OpenFont("./font/Debrosee-ALPnL.ttf", 24);
+    font = TTF_OpenFont("./font/Kingthings_Calligraphica_2.ttf", TEXT_SIZE);
 
     if (!font) {
         printf("Failed to load font: %s\n", TTF_GetError());
@@ -65,13 +65,13 @@ void print_status(void)
     SDL_Color textColor = {255, 255, 255, 255}; // White color
 
     // Create a surface with text
-    SDL_Surface *textSurface = TTF_RenderText_Solid(font, "Hello, SDL!", textColor);
+    SDL_Surface *textSurface = TTF_RenderText_Solid(font, "Snake Game!", textColor);
 
     // Create a texture from the surface
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
     // Render the text
-    SDL_Rect textRect = {100, 100, textSurface->w, textSurface->h};
+    SDL_Rect textRect = {SCREEN_WIDTH-STATUS_WIDTH + TEXT_SIZE, TEXT_SIZE, textSurface->w, textSurface->h};
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
 }

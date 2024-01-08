@@ -404,7 +404,7 @@
 
 1704439220 c:\programming\games\snake\sounds.h
 
-1704684168 c:\programming\games\snake\rendering.h
+1704701497 c:\programming\games\snake\rendering.h
 	"gameloop.h"
 
 1704611912 c:\programming\games\snake\levels.h
@@ -420,4 +420,16 @@
 1704612417 source:c:\programming\games\snake\sounds.cpp
 	"sounds.h"
 	<windows.h>
+
+1704700609 source:c:\programming\games\snake\rendering.cpp
+	"rendering.h"
+	<stdio.h>
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<windows.h>
+
+1704660940 c:\programming\games\sdl2_ttf-2.20.2\x86_64-w64-mingw32\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
 
