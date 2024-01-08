@@ -830,3 +830,7 @@
 	"begin_code.h"
 	"close_code.h"
 
+1704610337 source:c:\programming\games\sdl2_test\snake.cpp
+	"rendering.h"
+	"gameloop.h"
+
