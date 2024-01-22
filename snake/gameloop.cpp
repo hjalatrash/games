@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <time.h>
+//#include <cstdio>
 
 #include "sounds.h"
 #include "rendering.h"
@@ -19,8 +20,7 @@ unsigned int head_x=X_MAX/2, head_y=Y_MAX/2;
 unsigned int squares[X_MAX][Y_MAX];
 
 // level state
-unsigned int level;
-unsigned int fruit_count;
+struct game_state state = {.level = 0, .fruit_count = 1};
 
 // declarations
 void move_snake(bool grow);
@@ -36,6 +36,7 @@ bool game_step(void)
     static unsigned int growth = 0;
 
     bool complete_level = false;
+    bool collision = false;
 
     //static uint8_t red=0, green=0, blue=0;
     //static int mouse_x=0, mouse_y=0;
@@ -93,8 +94,7 @@ bool game_step(void)
     {
         case 1: // snake body
         case 3: // wall
-            collision_sound();
-            quit = true;
+            collision = true;
             break;
 
         case 2:     // fruit
@@ -102,8 +102,8 @@ bool game_step(void)
             squares[head_x][head_y] = 1;   // overwrite
             fruit_sound();
 
-            fruit_count--;
-            complete_level = (0==fruit_count);
+            state.fruit_count--;
+            complete_level = (0==state.fruit_count);
             break;
 
         case 0:
@@ -112,17 +112,31 @@ bool game_step(void)
             break;
     }
 
-    render(squares);
+    render(squares, state);
     SDL_Delay(70);
+
+    if(collision)
+    {
+        collision_sound();
+        if(0==state.lives)
+        {
+            quit = true;
+        }
+        else
+        {
+            state.lives--;
+            init_level(state.level);
+        }
+    }
 
     if(complete_level)
     {
-        level++;
-        init_level(level);
+        state.level++;
+        init_level(state.level);
         next_level_sound();
         SDL_Delay(500);
 
-        if(level>MAX_LEVEL)
+        if(state.level>MAX_LEVEL)
         {
             SDL_Delay(2000);
             quit = true;
@@ -150,10 +164,10 @@ void init_level(unsigned int level)
 
     // get level info
     get_level_walls(level, squares);
-    fruit_count = get_level_fruit_count(level);
+    state.fruit_count = get_level_fruit_count(level);
 
     // add fruit
-    for(unsigned int i =0; i<fruit_count;)
+    for(unsigned int i =0; i<state.fruit_count;)
     {
         unsigned int x = rand() % X_MAX;
         unsigned int y = rand() % Y_MAX;
@@ -170,8 +184,10 @@ void game_init()
 {
     srand ( time(NULL) );
 
-    level = 0;
-    init_level(level);
+    state.level = 0;
+    init_level(state.level);
+
+    state.lives = 5;
 }
 
 void add_move(unsigned int direction)

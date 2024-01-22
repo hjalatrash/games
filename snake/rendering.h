@@ -11,7 +11,8 @@
 
 
     int setup_graphics_window(void);
-    void render(unsigned int squares[X_MAX][Y_MAX]);
+    void print_text(char text[], unsigned int row);
+    void render(unsigned int squares[X_MAX][Y_MAX], struct game_state state);
     void close_graphics(void);
 
 #endif // RENDERING_H

@@ -59,24 +59,36 @@ int setup_graphics_window(void)
     return 0;
 }
 
-void print_status(void)
+void print_text(char text[], unsigned int row)
 {
     SDL_Texture *textTexture;
     SDL_Color textColor = {255, 255, 255, 255}; // White color
 
     // Create a surface with text
-    SDL_Surface *textSurface = TTF_RenderText_Solid(font, "Snake Game!", textColor);
+    SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, textColor);
 
     // Create a texture from the surface
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
     // Render the text
-    SDL_Rect textRect = {SCREEN_WIDTH-STATUS_WIDTH + TEXT_SIZE, TEXT_SIZE, textSurface->w, textSurface->h};
+    SDL_Rect textRect = {SCREEN_WIDTH-STATUS_WIDTH + TEXT_SIZE, row*TEXT_SIZE, textSurface->w, textSurface->h};
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
 }
 
-void render(unsigned int squares[X_MAX][Y_MAX])
+void print_status(struct game_state state)
+{
+    char text[20];
+    print_text("Snake Game!", 0);
+
+    sprintf(text, "Level %d", state.level);
+    print_text(text, 1);
+
+    sprintf(text, "Lives %d", state.lives);
+    print_text(text, 2);
+}
+
+void render(unsigned int squares[X_MAX][Y_MAX], struct game_state state)
 {
     // Clear background
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -122,7 +134,7 @@ void render(unsigned int squares[X_MAX][Y_MAX])
         }
     }
 
-    print_status();
+    print_status(state);
 
     // Update the screen
     SDL_RenderPresent(renderer);

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1704661232 source:c:\programming\games\snake\gameloop.cpp
+1705904743 source:c:\programming\games\snake\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
@@ -7,7 +7,7 @@
 	"rendering.h"
 	"levels.h"
 
-1704684158 c:\programming\games\snake\gameloop.h
+1705907120 c:\programming\games\snake\gameloop.h
 
 1701654368 c:\programming\games\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -404,7 +404,7 @@
 
 1704439220 c:\programming\games\snake\sounds.h
 
-1704701497 c:\programming\games\snake\rendering.h
+1705905207 c:\programming\games\snake\rendering.h
 	"gameloop.h"
 
 1704611912 c:\programming\games\snake\levels.h
@@ -421,7 +421,7 @@
 	"sounds.h"
 	<windows.h>
 
-1704700609 source:c:\programming\games\snake\rendering.cpp
+1705907344 source:c:\programming\games\snake\rendering.cpp
 	"rendering.h"
 	<stdio.h>
 	<SDL2/SDL.h>

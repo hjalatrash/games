@@ -9,4 +9,11 @@
     bool game_step(void);
     void game_init();
 
+    struct game_state
+    {
+        unsigned int level;
+        unsigned int fruit_count;
+        unsigned int lives;
+    };
+
 #endif // GAMELOOP_H
