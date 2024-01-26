@@ -1,0 +1,35 @@
+Working graphics project in C using SDL2...
+
+This uses Code::Blocks, used SDL2 project template when creating the project.
+
+Had to download SDL2 from here: https://github.com/libsdl-org/SDL/releases/tag/release-2.28.5
+
+- Libraries and headers from here: SDL2-devel-2.28.5-mingw.zip
+- DLL to be placed in running path from: SDL2-2.28.5-win32-x64.zip
+
+To compile properly:
+
+- In project build options -> search directories -> compiler: add "..\SDL2-2.28.5\x86_64-w64-mingw32\include"
+- In project build options -> search directories -> linker: add "..\SDL2-2.28.5\x86_64-w64-mingw32\lib"
+- Make sure main gets argc & argv: int main( int argc, char * argv[] )
+
+
+ChatGPT is a great resource to suggest code.. that's where most of that came from.
+
+
+Adding support for text:
+------------------------
+
+Downloaded from here: https://github.com/libsdl-org/SDL_ttf/releases
+SDL2_ttf-devel-2.20.2-mingw.zip
+
+To compile properly:
+- In project build options -> Linker settings and add the following link libraries:
+	* ..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib\libSDL2_ttf.dll.a
+	* ..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib\libSDL2_ttf.a
+	** the order mattered for some reason.  When libSDL2_ttf.a was first, i got a million errors.
+- In project build options -> search libraries -> compiler: add "..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\include\SDL2"
+- In project build options -> search libraries -> compiler: add "..\SDL2-2.28.5\x86_64-w64-mingw32\include\SDL2"
+- In project build options -> search libraries -> Liner: add "..\SDL2_ttf-2.20.2\x86_64-w64-mingw32\lib"
+
+Downloaded generic TTF font files from the internet.
