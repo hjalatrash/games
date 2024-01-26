@@ -17,14 +17,14 @@ int setup_graphics_window(void)
         printf("SDL_Init Error: %s\n", SDL_GetError());
         return 1;
     }
-/*
+
     // Initialize SDL_ttf
     if (TTF_Init() != 0) {
         printf("SDL_ttf initialization failed: %s\n", TTF_GetError());
         SDL_Quit();
         return 1;
     }
-*/
+
     // Create a window
     window = SDL_CreateWindow("Snake Game by H. Alatrash - Dec. 2023", SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -45,9 +45,9 @@ int setup_graphics_window(void)
 
     // Load a font
     //font = TTF_OpenFont("./font/ArianaVioleta-dz2K.ttf", 24);
-//    font = TTF_OpenFont("./font/Kingthings_Calligraphica_2.ttf", TEXT_SIZE);
+    font = TTF_OpenFont("./font/Kingthings_Calligraphica_2.ttf", TEXT_SIZE);
 
-/*
+
     if (!font) {
         printf("Failed to load font: %s\n", TTF_GetError());
         SDL_DestroyRenderer(renderer);
@@ -56,7 +56,7 @@ int setup_graphics_window(void)
         SDL_Quit();
         return 1;
     }
-*/
+
     return 0;
 }
 /*
