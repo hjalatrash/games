@@ -7,7 +7,7 @@
 
 1706251721 c:\programming\games\polygons\gameloop.h
 
-1706251993 source:c:\programming\games\polygons\gameloop.cpp
+1706253868 source:c:\programming\games\polygons\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
@@ -407,7 +407,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1706253511 source:c:\programming\games\polygons\rendering.cpp
+1706253796 source:c:\programming\games\polygons\rendering.cpp
 	"rendering.h"
 	<stdio.h>
 	<SDL2/SDL.h>

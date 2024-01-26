@@ -30,10 +30,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/programming/games/SDL2-2.28.5/x86_64-w64-mingw32/include" />
-			<Add directory="C:/programming/games/SDL2_ttf-2.20.2/x86_64-w64-mingw32/include" />
-			<Add directory="C:/programming/games/SDL2-2.28.5/x86_64-w64-mingw32/include/SDL2" />
-			<Add directory="C:/programming/games/SDL2_ttf-2.20.2/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="../SDL2-2.28.5/x86_64-w64-mingw32/include" />
+			<Add directory="../SDL2_ttf-2.20.2/x86_64-w64-mingw32/include" />
+			<Add directory="../SDL2-2.28.5/x86_64-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -45,8 +44,10 @@
 			<Add library="dxguid" />
 			<Add library="../SDL2-2.28.5/x86_64-w64-mingw32/lib/libSDL2.dll.a" />
 			<Add library="../SDL2-2.28.5/x86_64-w64-mingw32/lib/libSDL2.a" />
-			<Add directory="C:/programming/games/SDL2-2.28.5/x86_64-w64-mingw32/lib" />
-			<Add directory="C:/programming/games/SDL2_ttf-2.20.2/x86_64-w64-mingw32/lib" />
+			<Add library="../SDL2_ttf-2.20.2/x86_64-w64-mingw32/lib/libSDL2_ttf.dll.a" />
+			<Add library="../SDL2_ttf-2.20.2/x86_64-w64-mingw32/lib/libSDL2_ttf.a" />
+			<Add directory="../SDL2-2.28.5/x86_64-w64-mingw32/lib" />
+			<Add directory="../SDL2_ttf-2.20.2/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />

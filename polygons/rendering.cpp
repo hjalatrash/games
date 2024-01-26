@@ -26,7 +26,7 @@ int setup_graphics_window(void)
     }
 
     // Create a window
-    window = SDL_CreateWindow("Snake Game by H. Alatrash - Dec. 2023", SDL_WINDOWPOS_UNDEFINED,
+    window = SDL_CreateWindow("Screen Saver Animation", SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
@@ -59,7 +59,7 @@ int setup_graphics_window(void)
 
     return 0;
 }
-/*
+
 void print_text(char text[], unsigned int row)
 {
     SDL_Texture *textTexture;
@@ -72,11 +72,11 @@ void print_text(char text[], unsigned int row)
     textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
     // Render the text
-    SDL_Rect textRect = {SCREEN_WIDTH, row*TEXT_SIZE, textSurface->w, textSurface->h};
+    SDL_Rect textRect = {TEXT_SIZE, row*TEXT_SIZE, textSurface->w, textSurface->h};
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
 }
-*/
+
 void render(void)
 {
     // Clear background
@@ -93,7 +93,7 @@ void render(void)
     SDL_Rect rectangle = {.x = 1 + 20, .y = 1 + 30, .w = 20, .h = 30};
     SDL_RenderFillRect(renderer, &rectangle);
 
-//    print_status(state);
+    print_text("testing", 4);
 
     // Update the screen
     SDL_RenderPresent(renderer);
