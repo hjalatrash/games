@@ -4,14 +4,16 @@
 
     struct point
     {
-        unsigned int x;
-        unsigned int y;
+        float x;
+        float y;
+        float speed_x;
+        float speed_y;
     };
 
     bool game_step(void);
     void game_init();
     void render(struct point points[]);
 
-    #define NUM_POINTS  (16)
+    #define NUM_POINTS  (8)
 
 #endif // GAMELOOP_H
