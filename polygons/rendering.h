@@ -7,7 +7,6 @@
 
     int setup_graphics_window(void);
     void print_text(char text[], unsigned int row);
-    void render(void);
     void close_graphics(void);
 
 #endif // RENDERING_H

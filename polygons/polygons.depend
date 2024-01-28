@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1706251902 source:c:\programming\games\polygons\main.cpp
+1706461149 source:c:\programming\games\polygons\main.cpp
 	"rendering.h"
 	"gameloop.h"
 
-1706251547 c:\programming\games\polygons\rendering.h
+1706461243 c:\programming\games\polygons\rendering.h
 
-1706251721 c:\programming\games\polygons\gameloop.h
+1706460029 c:\programming\games\polygons\gameloop.h
 
-1706253868 source:c:\programming\games\polygons\gameloop.cpp
+1706461208 source:c:\programming\games\polygons\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
@@ -407,11 +407,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1706253796 source:c:\programming\games\polygons\rendering.cpp
+1706460926 source:c:\programming\games\polygons\rendering.cpp
 	"rendering.h"
 	<stdio.h>
-	<SDL2/SDL.h>
-	<SDL2/SDL_ttf.h>
 	<windows.h>
 
 1704660940 c:\programming\games\sdl2_ttf-2.20.2\x86_64-w64-mingw32\include\sdl2\sdl_ttf.h

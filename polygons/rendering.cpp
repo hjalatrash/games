@@ -5,9 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <windows.h>
 
-
-SDL_Window *window;
 SDL_Renderer *renderer;
+SDL_Window *window;
 TTF_Font *font;
 
 int setup_graphics_window(void)
@@ -75,28 +74,6 @@ void print_text(char text[], unsigned int row)
     SDL_Rect textRect = {TEXT_SIZE, row*TEXT_SIZE, textSurface->w, textSurface->h};
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
-}
-
-void render(void)
-{
-    // Clear background
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    // Set the drawing color
-    //SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-    unsigned int red=55, blue=200, green=100;
-
-
-    SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
-    SDL_Rect rectangle = {.x = 1 + 20, .y = 1 + 30, .w = 20, .h = 30};
-    SDL_RenderFillRect(renderer, &rectangle);
-
-    print_text("testing", 4);
-
-    // Update the screen
-    SDL_RenderPresent(renderer);
 }
 
 void close_graphics(void)
