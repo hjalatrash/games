@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 //#include <cstdio>
+#include <math.h>
 
 #include <windows.h>    // for sound, among other things
 #include "rendering.h"
@@ -10,10 +11,17 @@
 extern SDL_Renderer *renderer;
 
 struct point points[NUM_POINTS];
+struct color
+{
+    unsigned int r;
+    unsigned int g;
+    unsigned int b;
+    unsigned int brightness;
+};
 
-#define DT (70)     // msec
-
+#define DT (2)     // msec
 #define RANDOM_SPEED ((rand() % 1000) - 500)
+#define PI (3.1415962)
 
 void game_init()
 {
@@ -32,6 +40,9 @@ bool game_step(void)
 {
     SDL_Event event;
     static bool quit = false;
+    static float t=0;
+
+    t+= DT * 1e-3;
 
     //static int mouse_x=0, mouse_y=0;
 
@@ -91,26 +102,31 @@ bool game_step(void)
         }
     }
 
-    render(points);
+    struct color line_color =
+    {
+        .r = 127 + 128 * cos(10*t),
+        .g = 127 + 128 * cos(10*t+2*PI/3),
+        .b = 127 + 128 * cos(10*t-2*PI/3),
+        .brightness = 255
+    };
+
+    render(points, line_color);
     SDL_Delay(DT);
 
     return quit;
 }
 
 
-void render(struct point points[])
+void render(struct point points[], struct color line_color)
 {
     // Clear background
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    //SDL_RenderClear(renderer);
 
     // Set the drawing color
     //SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-    unsigned int red=55, blue=200, green=100;
-
-
-    SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
+    SDL_SetRenderDrawColor(renderer, line_color.r, line_color.g, line_color.b, line_color.brightness);
 
     for(unsigned int i=0; i<NUM_POINTS; i++)
     {
