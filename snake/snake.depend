@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1705904743 source:c:\programming\games\snake\gameloop.cpp
+1705907362 source:c:\programming\games\snake\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>

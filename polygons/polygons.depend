@@ -5,12 +5,13 @@
 
 1706461243 c:\programming\games\polygons\rendering.h
 
-1706466816 c:\programming\games\polygons\gameloop.h
+1706500934 c:\programming\games\polygons\gameloop.h
 
-1706462503 source:c:\programming\games\polygons\gameloop.cpp
+1706500904 source:c:\programming\games\polygons\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
+	<math.h>
 	<windows.h>
 	"rendering.h"
 
