@@ -14,6 +14,6 @@
     void game_init();
     void render(struct point points[], struct color line_color);
 
-    #define NUM_POINTS  (4000)
+    #define NUM_POINTS  (10000)
 
 #endif // GAMELOOP_H
