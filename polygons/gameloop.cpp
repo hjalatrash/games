@@ -34,8 +34,8 @@ void speed_init()
 
     for(unsigned int i=0; i<NUM_POINTS; i++)
     {
-        points[i].speed_x = RANDOM_SPEED*4;
-        points[i].speed_y = RANDOM_SPEED*4;
+        points[i].speed_x = RANDOM_SPEED*20;
+        points[i].speed_y = RANDOM_SPEED*20;
     }
 }
 
@@ -48,7 +48,7 @@ void game_init()
         points[i].x = 1e-3f * (rand() % 1000)-0.5f;
         points[i].y = 1e-3f * (rand() % 1000)-0.5f;
         points[i].gravity = (rand() % 1000)*1e-3f*10 + 5;
-        points[i].damping = (rand() % 1000)*1e-3f*4 + 2;
+        points[i].damping = (rand() % 1000)*1e-3f*1 + 2;
     }
 
     speed_init();
@@ -97,8 +97,16 @@ bool game_step(void)
 
     SDL_GetMouseState(&mouse_x, &mouse_y);
 
+    static float target_last_x=0.0f;
+    static float target_last_y=0.0f;
+
     float target_x = (mouse_x-X_CENTER)*1.0f/SCALE;
     float target_y = (mouse_y-Y_CENTER)*1.0f/SCALE;
+
+    float target_diff = sqrt(pow(target_x-target_last_x,2)+pow(target_y-target_last_y,2))*1e3+100;
+
+    target_last_x = target_x;
+    target_last_y = target_y;
 
     for(unsigned int i=0; i<NUM_POINTS; i++)
     {
@@ -107,8 +115,8 @@ bool game_step(void)
         points[i].x += points[i].speed_x * DT*1e-3f;
         points[i].y += points[i].speed_y * DT*1e-3f;
 
-        points[i].speed_x += (target_x - points[i].x)*points[i].gravity*1e-3f - points[i].speed_x*points[i].damping*1e-3;
-        points[i].speed_y += (target_y - points[i].y)*points[i].gravity*1e-3f - points[i].speed_y*points[i].damping*1e-3;
+        points[i].speed_x += (target_x - points[i].x)*points[i].gravity*1e-3f*target_diff - points[i].speed_x*points[i].damping*1e-3;
+        points[i].speed_y += (target_y - points[i].y)*points[i].gravity*1e-3f*target_diff - points[i].speed_y*points[i].damping*1e-3;
 
 
         if(points[i].x < -0.5f)
