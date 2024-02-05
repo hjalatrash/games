@@ -23,7 +23,10 @@ struct color
 #define RANDOM_SPEED (1e-3f * (rand() % 1000) - 0.5f)
 #define PI (3.1415962)
 
-#define SCALE   (600)
+#define SCALE       (800)
+#define X_CENTER    (SCREEN_WIDTH/2)
+#define Y_CENTER    (SCREEN_HEIGHT/2)
+
 
 void game_init()
 {
@@ -35,6 +38,8 @@ void game_init()
         points[i].y = 1e-3f * (rand() % 1000)-0.5f;
         points[i].speed_x = RANDOM_SPEED;
         points[i].speed_y = RANDOM_SPEED;
+        points[i].gravity = (rand() % 1000)*1e-3f*10 + 5;
+        points[i].damping = (rand() % 1000)*1e-3f*4 + 2;
     }
 }
 
@@ -78,15 +83,19 @@ bool game_step(void)
 
     SDL_GetMouseState(&mouse_x, &mouse_y);
 
+    float target_x = (mouse_x-X_CENTER)*1.0f/SCALE;
+    float target_y = (mouse_y-Y_CENTER)*1.0f/SCALE;
 
     for(unsigned int i=0; i<NUM_POINTS; i++)
     {
 
 
-        points[i].x += points[i].speed_x * DT*0.001;
-        points[i].y += points[i].speed_y * DT*0.001;
+        points[i].x += points[i].speed_x * DT*1e-3f;
+        points[i].y += points[i].speed_y * DT*1e-3f;
 
-        //points[i].speed_x += mouse_x - points[i].x;
+        points[i].speed_x += (target_x - points[i].x)*points[i].gravity*1e-3f - points[i].speed_x*points[i].damping*1e-3;
+        points[i].speed_y += (target_y - points[i].y)*points[i].gravity*1e-3f - points[i].speed_y*points[i].damping*1e-3;
+
 
         if(points[i].x < -0.5f)
         {
@@ -155,10 +164,10 @@ void render(struct point points[], struct color line_color)
         //SDL_SetRenderDrawColor(renderer, (points[i].x*128 + points[i_next].x*128)/SCREEN_WIDTH, (points[i].y*128+points[i_next].y*128)/SCREEN_HEIGHT, 0, 255);
         //SDL_RenderDrawLine(renderer, points[i].x, points[i].y, points[i_next].x, points[i_next].y);
 
-        SDL_RenderDrawPoint(renderer, points[i].x *SCALE + SCREEN_WIDTH/2, points[i].y * SCALE + SCREEN_HEIGHT/2);
+        SDL_RenderDrawPoint(renderer, points[i].x *SCALE + X_CENTER, points[i].y * SCALE + Y_CENTER);
     }
 
-    print_text("Maradona!", 4);
+    print_text("Satisfaction!", 1);
 
     // Update the screen
     SDL_RenderPresent(renderer);

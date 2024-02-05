@@ -8,6 +8,8 @@
         float y;
         float speed_x;
         float speed_y;
+        float gravity;
+        float damping;
     };
 
     bool game_step(void);

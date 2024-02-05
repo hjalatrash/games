@@ -3,11 +3,11 @@
 	"rendering.h"
 	"gameloop.h"
 
-1706461243 c:\programming\games\polygons\rendering.h
+1707093459 c:\programming\games\polygons\rendering.h
 
-1706501211 c:\programming\games\polygons\gameloop.h
+1707093832 c:\programming\games\polygons\gameloop.h
 
-1706501001 source:c:\programming\games\polygons\gameloop.cpp
+1707093721 source:c:\programming\games\polygons\gameloop.cpp
 	"gameloop.h"
 	<SDL2/SDL.h>
 	<time.h>
