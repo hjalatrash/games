@@ -28,6 +28,17 @@ struct color
 #define Y_CENTER    (SCREEN_HEIGHT/2)
 
 
+void speed_init()
+{
+    srand ( time(NULL) );
+
+    for(unsigned int i=0; i<NUM_POINTS; i++)
+    {
+        points[i].speed_x = RANDOM_SPEED*4;
+        points[i].speed_y = RANDOM_SPEED*4;
+    }
+}
+
 void game_init()
 {
     srand ( time(NULL) );
@@ -36,11 +47,11 @@ void game_init()
     {
         points[i].x = 1e-3f * (rand() % 1000)-0.5f;
         points[i].y = 1e-3f * (rand() % 1000)-0.5f;
-        points[i].speed_x = RANDOM_SPEED;
-        points[i].speed_y = RANDOM_SPEED;
         points[i].gravity = (rand() % 1000)*1e-3f*10 + 5;
         points[i].damping = (rand() % 1000)*1e-3f*4 + 2;
     }
+
+    speed_init();
 }
 
 bool game_step(void)
@@ -64,6 +75,9 @@ bool game_step(void)
                         quit = true;
                         break;
                     case SDLK_TAB:
+                        break;
+                    case SDLK_SPACE:
+                        speed_init();
                         break;
                 }
                 break;
@@ -167,7 +181,7 @@ void render(struct point points[], struct color line_color)
         SDL_RenderDrawPoint(renderer, points[i].x *SCALE + X_CENTER, points[i].y * SCALE + Y_CENTER);
     }
 
-    print_text("Satisfaction!", 1);
+    print_text("Press space to randomize!", 1);
 
     // Update the screen
     SDL_RenderPresent(renderer);
