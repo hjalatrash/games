@@ -86,6 +86,7 @@ const char* WEBPAGE_HTML = R"html(
         }
         .up { grid-column: 2; grid-row: 1; background-color: #4CAF50; }
         .left { grid-column: 1; grid-row: 2; background-color: #2196F3; }
+        .stop { grid-column: 2; grid-row: 2; background-color: #f44336; }
         .right { grid-column: 3; grid-row: 2; background-color: #2196F3; }
         .down { grid-column: 2; grid-row: 3; background-color: #FF9800; }
         
@@ -142,6 +143,7 @@ const char* WEBPAGE_HTML = R"html(
             <div class="direction-controls">
                 <button class="direction-btn up" onclick="sendDirection('FORWARD')">⬆️ FORWARD</button>
                 <button class="direction-btn left" onclick="sendDirection('LEFT')">⬅️ LEFT</button>
+                <button class="direction-btn stop" onclick="sendDirection('STOP')">⏹️ STOP</button>
                 <button class="direction-btn right" onclick="sendDirection('RIGHT')">➡️ RIGHT</button>
                 <button class="direction-btn down" onclick="sendDirection('BACKWARD')">⬇️ BACKWARD</button>
             </div>
@@ -255,6 +257,12 @@ const char* WEBPAGE_HTML = R"html(
                 case 'D':
                     event.preventDefault();
                     sendDirection('RIGHT');
+                    break;
+                case ' ':
+                case 'x':
+                case 'X':
+                    event.preventDefault();
+                    sendDirection('STOP');
                     break;
             }
         });

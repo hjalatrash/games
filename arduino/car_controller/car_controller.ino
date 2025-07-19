@@ -3,6 +3,13 @@
 #include <ESPmDNS.h>
 #include "webpage.h"
 
+// Motor control pins for Nano ESP32
+// Using GPIO pins that are available and suitable for motor control
+#define MOTOR_A_FWD 0
+#define MOTOR_A_BWD 1
+#define MOTOR_B_FWD 2
+#define MOTOR_B_BWD 3
+
 // WiFi credentials - CHANGE THESE TO YOUR NETWORK
 const char* ssid = "Atrash Home";
 const char* password = "microgrid2015";
@@ -27,10 +34,22 @@ void setup() {
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_BLUE, OUTPUT);
   
+  // Setup motor control pins
+  pinMode(MOTOR_A_FWD, OUTPUT);
+  pinMode(MOTOR_A_BWD, OUTPUT);
+  pinMode(MOTOR_B_FWD, OUTPUT);
+  pinMode(MOTOR_B_BWD, OUTPUT);
+  
   // Turn off all LEDs initially
   digitalWrite(LED_RED, HIGH);
   digitalWrite(LED_GREEN, HIGH);
   digitalWrite(LED_BLUE, HIGH);
+  
+  // Initialize motors to stop position
+  digitalWrite(MOTOR_A_FWD, LOW);
+  digitalWrite(MOTOR_A_BWD, LOW);
+  digitalWrite(MOTOR_B_FWD, LOW);
+  digitalWrite(MOTOR_B_BWD, LOW);
   
   // Connect to WiFi
   WiFi.begin(ssid, password);
@@ -49,9 +68,10 @@ void setup() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   
-  // Setup mDNS (optional - allows accessing via hostname)
-  if (MDNS.begin("arduino")) {
+  // Setup mDNS (allows accessing via hostname)
+  if (MDNS.begin("car-controller")) {
     Serial.println("MDNS responder started");
+    Serial.println("You can access the board at: http://car-controller.local");
   }
   
   // Setup server routes
@@ -108,29 +128,34 @@ void handleDirection() {
     
     if (direction == "FORWARD") {
       Serial.println("🟢 Moving FORWARD");
-      // Add your motor control code here
-      // digitalWrite(MOTOR_A_FWD, HIGH);
-      // digitalWrite(MOTOR_A_BWD, LOW);
-      // digitalWrite(MOTOR_B_FWD, HIGH);
-      // digitalWrite(MOTOR_B_BWD, LOW);
+      digitalWrite(MOTOR_A_FWD, HIGH);
+      digitalWrite(MOTOR_A_BWD, LOW);
+      digitalWrite(MOTOR_B_FWD, HIGH);
+      digitalWrite(MOTOR_B_BWD, LOW);
     } else if (direction == "BACKWARD") {
       Serial.println("🔴 Moving BACKWARD");
-      // digitalWrite(MOTOR_A_FWD, LOW);
-      // digitalWrite(MOTOR_A_BWD, HIGH);
-      // digitalWrite(MOTOR_B_FWD, LOW);
-      // digitalWrite(MOTOR_B_BWD, HIGH);
+      digitalWrite(MOTOR_A_FWD, LOW);
+      digitalWrite(MOTOR_A_BWD, HIGH);
+      digitalWrite(MOTOR_B_FWD, LOW);
+      digitalWrite(MOTOR_B_BWD, HIGH);
     } else if (direction == "LEFT") {
       Serial.println("🔵 Turning LEFT");
-      // digitalWrite(MOTOR_A_FWD, LOW);
-      // digitalWrite(MOTOR_A_BWD, HIGH);
-      // digitalWrite(MOTOR_B_FWD, HIGH);
-      // digitalWrite(MOTOR_B_BWD, LOW);
+      digitalWrite(MOTOR_A_FWD, LOW);
+      digitalWrite(MOTOR_A_BWD, HIGH);
+      digitalWrite(MOTOR_B_FWD, HIGH);
+      digitalWrite(MOTOR_B_BWD, LOW);
     } else if (direction == "RIGHT") {
       Serial.println("🔵 Turning RIGHT");
-      // digitalWrite(MOTOR_A_FWD, HIGH);
-      // digitalWrite(MOTOR_A_BWD, LOW);
-      // digitalWrite(MOTOR_B_FWD, LOW);
-      // digitalWrite(MOTOR_B_BWD, HIGH);
+      digitalWrite(MOTOR_A_FWD, HIGH);
+      digitalWrite(MOTOR_A_BWD, LOW);
+      digitalWrite(MOTOR_B_FWD, LOW);
+      digitalWrite(MOTOR_B_BWD, HIGH);
+    } else if (direction == "STOP") {
+      Serial.println("⏹️ STOPPING");
+      digitalWrite(MOTOR_A_FWD, LOW);
+      digitalWrite(MOTOR_A_BWD, LOW);
+      digitalWrite(MOTOR_B_FWD, LOW);
+      digitalWrite(MOTOR_B_BWD, LOW);
     }
     
     server.send(200, "text/plain", "Direction command executed");
