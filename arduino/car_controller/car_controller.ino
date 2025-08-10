@@ -22,6 +22,11 @@ bool redState = false;
 bool greenState = false;
 bool blueState = false;
 
+// Motor control variables
+unsigned long motorStartTime = 0;
+bool motorRunning = false;
+const unsigned long MOTOR_DURATION = 500; // 500ms = 0.5 seconds
+
 void setup() {
   // Initialize serial communication
   Serial.begin(115200);
@@ -87,6 +92,21 @@ void setup() {
 void loop() {
   // Handle client requests
   server.handleClient();
+  
+  // Check if motors should be stopped
+  if (motorRunning && (millis() - motorStartTime >= MOTOR_DURATION)) {
+    stopMotors();
+  }
+}
+
+// Function to stop all motors
+void stopMotors() {
+  digitalWrite(MOTOR_A_FWD, LOW);
+  digitalWrite(MOTOR_A_BWD, LOW);
+  digitalWrite(MOTOR_B_FWD, LOW);
+  digitalWrite(MOTOR_B_BWD, LOW);
+  motorRunning = false;
+  Serial.println("⏹️ Motors stopped automatically");
 }
 
 // Handle root page (main interface)
@@ -132,30 +152,35 @@ void handleDirection() {
       digitalWrite(MOTOR_A_BWD, LOW);
       digitalWrite(MOTOR_B_FWD, HIGH);
       digitalWrite(MOTOR_B_BWD, LOW);
+      motorStartTime = millis();
+      motorRunning = true;
     } else if (direction == "BACKWARD") {
       Serial.println("🔴 Moving BACKWARD");
       digitalWrite(MOTOR_A_FWD, LOW);
       digitalWrite(MOTOR_A_BWD, HIGH);
       digitalWrite(MOTOR_B_FWD, LOW);
       digitalWrite(MOTOR_B_BWD, HIGH);
+      motorStartTime = millis();
+      motorRunning = true;
     } else if (direction == "LEFT") {
       Serial.println("🔵 Turning LEFT");
       digitalWrite(MOTOR_A_FWD, LOW);
-      digitalWrite(MOTOR_A_BWD, HIGH);
+      digitalWrite(MOTOR_A_BWD, LOW);
       digitalWrite(MOTOR_B_FWD, HIGH);
       digitalWrite(MOTOR_B_BWD, LOW);
+      motorStartTime = millis();
+      motorRunning = true;
     } else if (direction == "RIGHT") {
       Serial.println("🔵 Turning RIGHT");
       digitalWrite(MOTOR_A_FWD, HIGH);
       digitalWrite(MOTOR_A_BWD, LOW);
       digitalWrite(MOTOR_B_FWD, LOW);
-      digitalWrite(MOTOR_B_BWD, HIGH);
+      digitalWrite(MOTOR_B_BWD, LOW);
+      motorStartTime = millis();
+      motorRunning = true;
     } else if (direction == "STOP") {
       Serial.println("⏹️ STOPPING");
-      digitalWrite(MOTOR_A_FWD, LOW);
-      digitalWrite(MOTOR_A_BWD, LOW);
-      digitalWrite(MOTOR_B_FWD, LOW);
-      digitalWrite(MOTOR_B_BWD, LOW);
+      stopMotors();
     }
     
     server.send(200, "text/plain", "Direction command executed");
